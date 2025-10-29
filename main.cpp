@@ -1,7 +1,7 @@
 #include "Frontend/Frontend.hpp"
 
 int main(int argc, char** argv) {
-  Frontend render;
+  GE::Frontend render;
 
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -13,10 +13,10 @@ int main(int argc, char** argv) {
   glutCreateWindow("Mouse Line Drawing");
   glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 
-  glutDisplayFunc(Frontend::displayWrapper);
-  glutReshapeFunc(Frontend::reshapeWrapper);
-  glutMouseFunc(Frontend::onMouseWrapper);
-  glutMotionFunc(Frontend::onMotionWrapper);
+  glutDisplayFunc(GE::Frontend::displayWrapper);
+  glutReshapeFunc(GE::Frontend::reshapeWrapper);
+  glutMouseFunc(GE::Frontend::onMouseWrapper);
+  glutMotionFunc(GE::Frontend::onMotionWrapper);
 
   glutMainLoop();
 
