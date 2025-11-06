@@ -20,6 +20,11 @@ This project serves as a personal learning experiment and may not be of general 
 ### Prototype Phase
 The “Prototype” status applies until encoding, decoding, and additional tools are implemented.
 
+#### V1.0.0.2
+Third push.<br>
+Reverted module Data to using Node linked list instead of vector to have more control over the data storage.<br>
+Push to not lose progress.
+
 #### V1.0.0.1
 Second push.<br>
 - Changed repository visibility from private to public.  

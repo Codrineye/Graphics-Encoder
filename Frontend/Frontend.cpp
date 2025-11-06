@@ -27,14 +27,14 @@ namespace GE {
 
   void Frontend::display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    const int points_count = scene->getPointsCount();
+    const int points_count = scene->getPointsCount() / 2;
 
-    for (size_t i = 0; i + 1 < points_count; i += 2) {
+    for (size_t i = 0; i < points_count; i ++) {
       glColor3f(1.0f, 1.0f, 1.0f);
       glLineWidth(3.0f);
       glBegin(GL_LINES);
-      glVertex2f(Width * scene->getCoord_x(i), Height * scene->getCoord_y(i));
-      glVertex2f(Width * scene->getCoord_x(i + 1), Height * scene->getCoord_y(i + 1));
+      glVertex2f(Width * scene->getCoord_x(i, 2, 0), Height * scene->getCoord_y(i, 2, 0));
+      glVertex2f(Width * scene->getCoord_x(i, 2, 1), Height * scene->getCoord_y(i, 2, 1));
       glEnd();
     }
 

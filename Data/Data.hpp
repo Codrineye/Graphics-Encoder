@@ -1,29 +1,34 @@
 #pragma once
 
-#include <vector>
 #include <string>
 
 // project namespace Graphics Encoder combined to GE
 namespace GE {
-  struct Point {
+  struct Node {
     std::string label;
     float x, y;
+
+    Node *next;
   };
 
   class Data {
   private:
-    std::vector<Point> points;
+    Node *root;
   public:
     Data();
     ~Data();
-    void addPoint(float x, float y, const std::string& label);
+    void addPoint(float x, float y, const std::string& label = "label");
     void updateCoords(float x, float y);
 
+    Node *getAtLastPoint();
+    const Node *getAtIndex(int index, int factor, int offset) const;
+    const Node *getAtIndex(int raw_index) const;
+
     const int getPointsCount() const;
-    const float getCoord_x(int index) const;
-    const float getCoord_y(int index) const;
-    const std::string getLabel(int index) const;
-    const std::vector<Point>& getPoints() const;
+
+    const float getCoord_x(int index, int factor, int offset) const;
+    const float getCoord_y(int index, int factor, int offset) const;
+    const std::string getLabel(int index, int factor, int offset) const;
   };
 
 }
