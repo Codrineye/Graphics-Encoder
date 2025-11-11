@@ -1,19 +1,19 @@
 #pragma once
 
 #include <GL/freeglut.h>
-#include "../Data/Data.hpp"
+#include "../Storage/hdr/Data.hpp"
 
 namespace GE {
   class Frontend {
   private:
-    int Width, Height;
     bool isDrawing;
-    Data* scene;
+    Data* dataStorage;
 
   public:
     Frontend();
-    int getWidth();
+
     int getHeight();
+    int getWidth();
 
     void display();
     void reshape(int width, int height);

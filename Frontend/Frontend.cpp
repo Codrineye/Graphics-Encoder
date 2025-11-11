@@ -4,21 +4,17 @@ namespace GE {
   static Frontend* gl_Instance;
   Frontend::Frontend() {
     gl_Instance = this;
-    Width = 600;
-    Height = 600;
     isDrawing = false;
 
-    scene = new Data;
+    dataStorage = new Data;
   }
 
-
-  int Frontend::getWidth() { return this->Width; }
-  int Frontend::getHeight() { return this->Height; }
-
+  int Frontend::getHeight() { return dataStorage->get_Height(); }
+  int Frontend::getWidth() { return dataStorage->get_Width(); }
   void Frontend::reshape(int width, int height)
   {
-    Width = width;
-    Height = height;
+    dataStorage->update_Width(width);
+    dataStorage->update_Height(height);
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -27,14 +23,14 @@ namespace GE {
 
   void Frontend::display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    const int points_count = scene->getPointsCount() / 2;
+    const int points_count = dataStorage->getPointsCount();
 
     for (size_t i = 0; i < points_count; i ++) {
       glColor3f(1.0f, 1.0f, 1.0f);
       glLineWidth(3.0f);
       glBegin(GL_LINES);
-      glVertex2f(Width * scene->getCoord_x(i, 2, 0), Height * scene->getCoord_y(i, 2, 0));
-      glVertex2f(Width * scene->getCoord_x(i, 2, 1), Height * scene->getCoord_y(i, 2, 1));
+      glVertex2f(dataStorage->getCoordX(i, 0), dataStorage->getCoordY(i, 0));
+      glVertex2f(dataStorage->getCoordX(i, 1), dataStorage->getCoordY(i, 1));
       glEnd();
     }
 
@@ -43,13 +39,15 @@ namespace GE {
 
   void Frontend::onMouse(int button, int state, int x, int y) {
     if (button != GLUT_LEFT_BUTTON) return;
-    float fx = static_cast<float>(x) / Width;
-    float fy = static_cast<float>(Height - y) / Height;
+    float fx = static_cast<float>(x);
+
+    const int Height = dataStorage->get_Height();
+    float fy = static_cast<float>(Height - y);
 
     if (state == GLUT_DOWN) {
       isDrawing = true;
-      scene->addPoint(fx, fy, "line"); // start point
-      scene->addPoint(fx, fy, "line"); // end point
+      dataStorage->Record_point(fx, fy); // start point
+      dataStorage->Record_point(fx, fy); // end point
     }
     else if (state == GLUT_UP) {
       isDrawing = false;
@@ -58,8 +56,9 @@ namespace GE {
   }
 
   void Frontend::onMotion(int x, int y) {
-    if (!isDrawing || scene->getPointsCount() == 0) return;
-    scene->updateCoords(static_cast<float>(x) / Width, static_cast<float>(Height - y) / Height);
+    if (!isDrawing || dataStorage->getPointsCount() == 0) return;
+    const int Height = dataStorage->get_Height();
+    dataStorage->Update_point(static_cast<float>(x), static_cast<float>(Height - y));
     glutPostRedisplay();
   }
 

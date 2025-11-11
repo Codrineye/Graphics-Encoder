@@ -20,6 +20,10 @@ This project serves as a personal learning experiment and may not be of general 
 ### Prototype Phase
 The “Prototype” status applies until encoding, decoding, and additional tools are implemented.
 
+### V1.0.0.3
+Replaced old `Data` module with new [Data](./Storage/hdr/Data.hpp) and [Values](./Storage/hdr/Values.hpp).<br>
+Translation from this static to an AST system should be possible now.
+
 #### V1.0.0.2
 Third push.<br>
 Reverted module Data to using Node linked list instead of vector to have more control over the data storage.<br>
